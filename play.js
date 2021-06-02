@@ -3,27 +3,25 @@ const connect = require("./client").connect;
 
 console.log("Connecting ...");
 const conn = connect();
-conn.on("connect", () => {
-  // conn.write("Move: up");
-  // setTimeout(() => {
-  //   conn.write("Move: up");
-  //   setTimeout(() => {
-  //     conn.write("Move: up");
-  //     setTimeout(() => {
-  //       conn.write("Move: up");
-  //     }, 500);
-  //     setTimeout(() => {
-  //       conn.write("Move: left");
-  //       setTimeout(() => {
-  //         conn.write("Move: left");
-  //         setTimeout(() => {
-  //           conn.write("Move: left");
-  //           setTimeout(() => {
-  //             conn.write("Move: down");
-  //           }, 500);
-  //         }, 500);
-  //       }, 500);
-  //     }, 500);
-  //   }, 500);
-  // }, 500);
-});
+
+// setup interface to handle user input from stdin
+
+const handleUserInput = function (key) {
+  if (key === '\u0003') {
+    console.log("Quitting");
+    process.exit();
+  }
+};
+
+const setupInput = function () {
+  const stdin = process.stdin;
+  stdin.setRawMode(true);
+  stdin.setEncoding("utf8");
+  stdin.resume();
+  stdin.on("data", handleUserInput);
+  return stdin;
+};
+
+setupInput();
+
+
