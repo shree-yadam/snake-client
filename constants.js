@@ -9,4 +9,6 @@ const movementCommand = {
   p: "Say: Hmmm......"
 };
 
-module.exports = { IP, PORT, movementCommand };
+const speedInterval = 100;
+
+module.exports = { IP, PORT, movementCommand, speedInterval };

@@ -1,13 +1,20 @@
 // setup interface to handle user input from stdin
-const { movementCommand } = require("./constants");
+const { movementCommand, speedInterval } = require("./constants");
 let connection;
-
+let timerId = null;
 const handleUserInput = function(key) {
   if (key === '\u0003') {
     console.log("Quitting");
     process.exit();
   } else if (key in movementCommand) {
-    connection.write(movementCommand[key]);
+    if (key === 'w' || key === 'a' || key === 's' || key === 'd') {
+      clearInterval(timerId);
+      timerId = setInterval(() => {
+        connection.write(movementCommand[key]);
+      }, speedInterval);
+    } else {
+      connection.write(movementCommand[key]);
+    }
   }
 };
 
