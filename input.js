@@ -1,14 +1,6 @@
 // setup interface to handle user input from stdin
+const { movementCommand } = require("./constants");
 let connection;
-
-const movementCommand = {
-  w: "Move: up",
-  a: "Move: left",
-  s: "Move: down",
-  d: "Move: right",
-  m: "Say: Yay! I can do this",
-  p: "Say: Hmmm......"
-};
 
 const handleUserInput = function(key) {
   if (key === '\u0003') {
@@ -29,7 +21,7 @@ const setupInput = function(conn) {
   for (let key in movementCommand) {
     console.log(`${key} - ${movementCommand[key]}`);
   }
-  console.log("Ctrl + C - move up");
+  console.log("Ctrl + C - Quit");
   stdin.on("data", handleUserInput);
   return stdin;
 };
